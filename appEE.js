@@ -278,8 +278,6 @@ function ankimode(){
 		noneitem[i].style = "display:none;";
 	}
     var footer = document.getElementById("footer");
-    var alsonow = document.getElementById("alsonowandmyword");
-    alsonow.innerHTML = '加油！卡片快做完了 <a href="https://alsonow.neocities.org/EE/">alsonow英英</a>'
 }//end
 
 function webExtensionmode(){

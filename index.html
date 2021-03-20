@@ -18,7 +18,9 @@
         </div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
             <a href="#" class="navbar-brand">
-                <img src="alsonow_icon.png" alt="alsonow" width="30px">英英
+                <img src="alsonow_icon.png" alt="alsonow" width="30px">
+                <span class="fillinMyWord" id="" style="">英英</span>
+                <span> | alsonow</span>
             </a>
 
             <button type="button" class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navContent">
@@ -36,13 +38,13 @@
                 </ul>
             </div>
         </nav>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-bottom">
+        <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-bottom">
             <div id="keyWordDiv" class="">
                 <span class="wordCon ankimode-none">
                     <p>搜尋關鍵字為：<span class="fillinMyWord">無</span></p>
                 </span>
             </div>
-        </nav>
+        </nav> -->
 
         <noscript>
             <div class="jumbotron">
@@ -55,18 +57,17 @@
         <div class="container">
             <div class="jumbotron">
                 <p class="" style="">ALSONOW - ALL搜NOW</p>
-                <h1 class="text-align-center fillinMyWord" id="alsonowandmyword" style="">alsonow英英</h1>
+                <form method="get" class="form-inline">
+                    <div class="form-group text-align-center">
+                        <div class="input-group input-group-lg">
+                            <input type="text" name="myWord" id="myWord" class="form-control" placeholder="輸入搜尋">
+                            <input type="submit" value="GO" class="">
+                        </div>
+                    </div>
+                </form>
             </div>
             <div id="mySearchBar">
                 <form method="get" class="form-inline">
-                    <div class="form-group text-align-right">
-                        <div class="input-group input-group-md">
-                            <input type="text" name="myWord" id="myWord" class="form-control text-align-center" placeholder="輸入搜尋">
-                            <div class="input-group-append">
-                                <input type="submit" value="GO" class="myButton">
-                            </div>
-                        </div>
-                    </div>
                     <div class="form-group">
                         <div class="input-group input-group-sm">
                             <div class="input-group-prepend">
