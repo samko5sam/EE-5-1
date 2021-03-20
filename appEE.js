@@ -40,10 +40,10 @@ var Config = {
 
 //流程
 window.onload = (event) => {
-    checkCookie();
-
     generateLocationQRCODE();
     splitMyUrl();
+    checkCookie();
+
     makeDicLink();
     fillinMyWord();
     addAllatag();
@@ -74,40 +74,16 @@ function splitMyUrl(){//related:addCustomUrl() decodeMyWord()
             //參數 方法 fo(frame open) cdic(custom dic)
             if (config[0] == "myWord"){
                 var myWord = decodeMyWord(config[1]);
-                console.log("解碼："+myWord);
+                console.log("解碼myword："+myWord);
                 Config.myWord = myWord;
             }else if (config[0] == "cdic"){
-                if (config[1] != ""){
-                    document.getElementById("cdic").value = "";
-                    var x = config[1];
-                    var x = decodeURIComponent(x);
-                    console.log(x);
-                    var x = x.split(",");
-                    for (var f = 0; f < x.length; f++){
-                        var url = addCustomUrl(x[f]);
-                        Config.cdic = url;
-                    }
-                }
+                setCookie("cdic", config[1], 30);
             }else if (config[0] == "fo"){
-                if (config[1] == "y"){
-                    Config.fo = "y";
-                    document.getElementById("fo").checked = "true";
-                }else{
-                    document.getElementById("fo").checked = "false";
-                }
+                setCookie("fo", config[1], 30);
             }else if (config[0] == "to"){//addtobtn() gotoconfigto()
-            	if (config[1] != ""){
-            		Config.to = config[1] ;
-                	document.getElementById("to").value = Config.to ;
-                	gotoconfigto();
-                	addtobtn();
-            	}
-            }else if (config[0] == "mode"){//not in form
-                if (config[1] == "anki"){
-                    Config.mode = "anki";
-                }else if (config[1] == "webExtension"){
-                    Config.mode = "webExtension";
-                }
+                setCookie("to", config[1], 30);
+            }else if (config[0] == "mode"){
+                setCookie("mode", config[1], 30);
             }
         };
     }
@@ -119,7 +95,9 @@ function addtobtn(){
 }
 
 function gotoconfigto(){
-    $('html, body').animate({scrollTop: Config.to}, 100);
+    if (Config.myWord != "") {
+        $('html, body').animate({scrollTop: Config.to}, 100);
+    }
 }
 
 function makeDicLink(){
@@ -144,13 +122,6 @@ function addAllatag(){
     if (Config.myWord != ""){
         var DicLink = document.getElementById("myDicLink");
         var mymodal = document.getElementById("DicLink");
-        DicLink.innerHTML  = '<button type="button" onclick="openAllTab()" class="btn btn-primary">彈出所有視窗</button>';
-        DicLink.innerHTML += '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DicLink-modal" id="">字典連結</button>'
-
-        for (var i = 0; i < Dic.length; i++) {
-            var dicname = Dic[i][0];
-            mymodal.innerHTML += '<a id="engine-a-'+i+'" href="" target="_blank" rel="nofollow" class="DicLink">'+dicname+'</a><hr>';
-        };
 
         DicLink.innerHTML += '<hr><p class="text-align-center">在這裡開啟</p><hr>';
         DicLink.innerHTML += '<ul class="nav nav-tabs" id="framenavtabs"></ul>';
@@ -161,6 +132,15 @@ function addAllatag(){
             //DicLink.innerHTML += '<a id="engine-a-frame-'+i+'" href="" target="Diciframe" rel="nofollow" class="DicLink">'+dicname+'</a><br>';
         };
         DicLink.innerHTML += '<iframe src="" id="Diciframe" name="Diciframe" width="100%" height="550px"></iframe>';
+
+        DicLink.innerHTML += '<hr class=""><p class="text-align-center">連結</p><hr class="">';
+        DicLink.innerHTML += '<button type="button" onclick="openAllTab()" class="btn btn-primary">彈出所有視窗</button>';
+        DicLink.innerHTML += '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DicLink-modal" id="">字典連結</button>'
+
+        for (var i = 0; i < Dic.length; i++) {
+            var dicname = Dic[i][0];
+            mymodal.innerHTML += '<a id="engine-a-'+i+'" href="" target="_blank" rel="nofollow" class="DicLink">'+dicname+'</a><hr>';
+        };
     }
 }//end
 
@@ -178,7 +158,7 @@ function fillinMyWordUrl(){
 }//end
 
 function addAllFrame(){
-    if (Config.fo == "y"){
+    if (Config.fo == "y" && Config.myWord != ""){
         var DicFrame = document.getElementById("myDicFrame");
         DicFrame.innerHTML = '<hr><p class="text-align-center">內嵌視窗</p><hr>';
         for (var i = 0; i < Dic.length; i++) {
@@ -189,7 +169,7 @@ function addAllFrame(){
 }//end
 
 function openAllFrame(){
-    if (Config.fo == "y"){
+    if (Config.fo == "y" && Config.myWord != ""){
         var DicFrame = document.getElementById("myDicFrame");
         for (var i = 0; i < Dic.length; i++) {
             var nowFrame = "iframe-"+i;
@@ -221,13 +201,13 @@ function scrolltotop(){
 function addCustomUrl(url) {
     var dec = decodeURIComponent(url);
     Dic.unshift([]);
-    console.log("解碼："+dec);
+    console.log("---解碼："+dec);
     Dic[0].unshift(dec);
     Dic[0].unshift("https://alsonow.neocities.org/");
     Dic[0].unshift("custom");
     var cdic = document.getElementById("cdic");
     if (cdic.value != ""){
-        cdic.value += ",";
+        cdic.value += "!s";
     }
     cdic.value += dec;
     return dec ;
@@ -273,11 +253,7 @@ function myModeIs(){
 }//end
 
 function ankimode(){
-	var noneitem = document.getElementsByClassName("ankimode-none");
-	for (var i = 0; i < noneitem.length; i++){
-		noneitem[i].style = "display:none;";
-	}
-    var footer = document.getElementById("footer");
+
 }//end
 
 function webExtensionmode(){
