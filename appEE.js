@@ -60,11 +60,11 @@ function splitMyUrl(){//related:addCustomUrl() decodeMyWord()
     //slipturl and make dictionary link, frame
     var temp = location.href.split("#");
     var temp = temp[0].split("?");
-    if (temp[1] != "" ){
+    if (temp[1] != "" && temp[1] != undefined){
         var temp = temp[1].split("&");
         for (var i = 0; i < temp.length; i++) {
             var config = temp[i].split("=");
-            if (config[1] != ""){
+            if (config[1] != "" && config[1] != undefined){
                 var value = config[1];
             }else{
                 var value = "未設定";
