@@ -40,6 +40,8 @@ var Config = {
 
 //流程
 window.onload = (event) => {
+    checkCookie();
+
     generateLocationQRCODE();
     splitMyUrl();
     makeDicLink();
@@ -178,10 +180,10 @@ function fillinMyWordUrl(){
 function addAllFrame(){
     if (Config.fo == "y"){
         var DicFrame = document.getElementById("myDicFrame");
-        DicFrame.innerHTML = '<hr><p class="text-align-center">內嵌視窗</p><hr><button type="button" onclick="reloadAllFrame()" class="myButton">重新整理內嵌視窗</button><br><br>';
+        DicFrame.innerHTML = '<hr><p class="text-align-center">內嵌視窗</p><hr>';
         for (var i = 0; i < Dic.length; i++) {
             var nowFrame = "iframe-"+i;
-            DicFrame.innerHTML += '<iframe src="" title="" id="'+nowFrame+'" name="'+nowFrame+'" class="Diciframe"></iframe><br>';
+            DicFrame.innerHTML += '<iframe src="" title="" id="'+nowFrame+'" name="'+nowFrame+'" class="Diciframe" width="100%" height="550px"></iframe><br>';
         };
     }
 }//end
@@ -204,13 +206,13 @@ function openAllTab(){
         window.open(Dic[i][3]);
     };
 }//end
-
-function reloadAllFrame(){
-    for (var i = 0; i < Dic.length; i++){
-        var nowFrame = "iframe-"+i;
-        document.frames(nowFrame).location.reload();
-    };
-}//end
+//
+// function reloadAllFrame(){
+//     for (var i = 0; i < Dic.length; i++){
+//         var nowFrame = "iframe-"+i;
+//         document.frames(nowFrame).location.reload();
+//     };
+// }//end
 
 function scrolltotop(){
     $('html, body').animate({scrollTop: 0}, 100);
