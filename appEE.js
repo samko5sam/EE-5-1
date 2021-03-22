@@ -69,13 +69,15 @@ function splitMyUrl(){//related:addCustomUrl() decodeMyWord()
             }else{
                 var value = "未設定";
             }
-            console.log(config[0] +" 值為 "+ value);
+            console.log("[url] "+config[0] +" 值為 "+ value);
 
             //參數 方法 fo(frame open) cdic(custom dic)
             if (config[0] == "myWord"){
-                var myWord = decodeMyWord(config[1]);
-                console.log("解碼myword："+myWord);
-                Config.myWord = myWord;
+                if (config[1] != "") {
+                    var myWord = decodeMyWord(config[1]);
+                    console.log("解碼myword："+myWord);
+                    Config.myWord = myWord;
+                }
             }else if (config[0] == "cdic"){
                 setCookie("cdic", config[1], 30);
             }else if (config[0] == "fo"){
@@ -134,7 +136,7 @@ function addAllatag(){
         DicLink.innerHTML += '<iframe src="" id="Diciframe" name="Diciframe" width="100%" height="550px"></iframe>';
 
         DicLink.innerHTML += '<hr class=""><p class="text-align-center">連結</p><hr class="">';
-        DicLink.innerHTML += '<button type="button" onclick="openAllTab()" class="btn btn-primary">彈出所有視窗</button>';
+        DicLink.innerHTML += '<button type="button" onclick="openAllTab()" class="btn btn-primary">彈出所有視窗</button> ';
         DicLink.innerHTML += '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DicLink-modal" id="">字典連結</button>'
 
         for (var i = 0; i < Dic.length; i++) {
